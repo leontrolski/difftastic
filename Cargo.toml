@@ -1,0 +1,65 @@
+[package]
+name = "difftastic"
+description = "A diff that understands syntax"
+repository = "https://github.com/wilfred/difftastic"
+homepage = "http://difftastic.wilfred.me.uk/"
+license = "MIT"
+version = "0.26.0"
+authors = ["Wilfred Hughes <me@wilfred.me.uk>"]
+keywords = ["diff", "syntax"]
+categories = ["development-tools", "command-line-utilities", "parser-implementations"]
+edition = "2018"
+rust-version = "1.56.0"
+include = [
+        "/build.rs",
+        "/src/",
+        "/vendor/highlights/*.scm",
+        "/vendor/**/*.c",
+        "/vendor/**/*.h",
+        "/vendor/**/*.cc",
+        "/README.md",
+]
+
+[dependencies]
+regex = "1.5.4"
+clap = { version = "3.0.13", features = ["cargo"] }
+itertools = "0.10.1"
+typed-arena = "2.0.1"
+rustc-hash = "1.1.0"
+strsim = "0.10.0"
+lazy_static = "1.4.0"
+atty = "0.2.14"
+tree-sitter = "0.20.5"
+libc = "0.2.108"
+log = "0.4.14"
+pretty_env_logger = "0.4.0"
+mimalloc = { version = "0.1.26", default-features = false }
+radix-heap = "0.4.2"
+walkdir = "2.3.2"
+term_size = "0.3.2"
+const_format = "0.2.22"
+owo-colors = "3.2.0"
+rpds = "0.10.0"
+wu-diff = "0.1.2"
+serde = { version = "1.0", features = ["derive"] }
+
+[dev-dependencies]
+pretty_assertions = "1.0.0"
+
+[build-dependencies]
+cc = "1.0.72"
+rayon = "1.5.1"
+
+[profile.release]
+# Release builds don't have debug symbols by default. We explicitly
+# set this flag so it's easier to toggle when profiling with
+# flamegraph.
+#
+# https://doc.rust-lang.org/cargo/reference/profiles.html#release
+debug = false
+
+[[bin]]
+name = "difft"
+path = "src/main.rs"
+
+[features]
